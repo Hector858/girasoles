@@ -1,0 +1,1759 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Feliz Día de las Flores Amarillas 🌻</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lobster&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            overflow: hidden;
+            font-family: Arial, Helvetica, sans-serif;
+
+            background:
+                radial-gradient(circle at 50% 25%,
+                    rgba(77, 168, 147, .35),
+                    transparent 35%),
+                linear-gradient(180deg,
+                    #245e4d 0%,
+                    #287968 25%,
+                    #278d89 65%,
+                    #339d9c 100%);
+        }
+
+        /* =====================================================
+   ESCENA GENERAL
+===================================================== */
+
+        .scene {
+            width: 100vw;
+            height: 100vh;
+            min-height: 650px;
+
+            position: relative;
+
+            overflow: hidden;
+
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        /* brillo central */
+
+        .scene::before {
+            content: "";
+
+            position: absolute;
+
+            width: 800px;
+            height: 800px;
+
+            top: -300px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            background:
+                radial-gradient(circle,
+                    rgba(255, 255, 180, .15),
+                    transparent 67%);
+
+            pointer-events: none;
+        }
+
+
+        /* =====================================================
+   TITULO
+===================================================== */
+
+        .header {
+            position: absolute;
+
+            top: 3.5%;
+            left: 50%;
+
+            width: 95%;
+
+            transform: translateX(-50%);
+
+            text-align: center;
+
+            z-index: 200;
+
+            pointer-events: none;
+        }
+
+        .header h1 {
+            font-family: "Great Vibes", cursive;
+
+            font-size: clamp(3rem,
+                    6vw,
+                    5.8rem);
+
+            line-height: 1;
+
+            font-weight: 400;
+
+            color: #fff700;
+
+            text-shadow:
+                0 0 5px #faff00,
+                0 0 12px #faff00,
+                0 0 25px rgba(255, 242, 0, .7);
+
+            animation: titleEnter 1.8s ease forwards;
+        }
+
+        .header p {
+            margin-top: 4px;
+
+            font-family: "Lobster", cursive;
+
+            font-size: clamp(1.3rem,
+                    2.5vw,
+                    2.2rem);
+
+            color: #00eaff;
+
+            text-shadow:
+                0 0 5px rgba(0, 255, 255, .5);
+
+            animation: subtitleEnter 2s ease forwards;
+        }
+
+        @keyframes titleEnter {
+
+            from {
+                opacity: 0;
+                transform:
+                    translateY(-50px) scale(.8);
+            }
+
+            to {
+                opacity: 1;
+                transform:
+                    translateY(0) scale(1);
+            }
+        }
+
+        @keyframes subtitleEnter {
+
+            0% {
+                opacity: 0;
+                transform: translateY(-15px);
+            }
+
+            60% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        /* =====================================================
+   LUCES / ESTRELLAS
+===================================================== */
+
+        .firefly {
+            position: absolute;
+
+            width: var(--size);
+            height: var(--size);
+
+            border-radius: 50%;
+
+            background: #ecff00;
+
+            box-shadow:
+                0 0 4px #ecff00,
+                0 0 8px rgba(236, 255, 0, .9);
+
+            opacity: 0;
+
+            animation:
+                fireflyMove var(--duration) linear infinite;
+
+            animation-delay:
+                var(--delay);
+
+            z-index: 2;
+        }
+
+        @keyframes fireflyMove {
+
+            0% {
+                opacity: 0;
+                transform:
+                    translateY(40px) scale(.5);
+            }
+
+            20% {
+                opacity: .8;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                transform:
+                    translate(var(--moveX),
+                        -120px) scale(1.3);
+            }
+        }
+
+
+        /* =====================================================
+   CESPED
+===================================================== */
+
+        .grass-area {
+            position: absolute;
+
+            width: 100%;
+            height: 48%;
+
+            bottom: 0;
+            left: 0;
+
+            z-index: 3;
+
+            pointer-events: none;
+        }
+
+        .grass {
+            position: absolute;
+
+            width: 7px;
+            height: var(--height);
+
+            bottom: -10px;
+            left: var(--left);
+
+            background:
+                linear-gradient(to top,
+                    rgba(11, 91, 45, .9),
+                    rgba(31, 126, 59, .75),
+                    transparent);
+
+            border-radius: 100% 100% 0 0;
+
+            transform-origin: bottom center;
+
+            transform:
+                rotate(var(--rotate));
+
+            opacity: .75;
+
+            animation:
+                grassMove 3.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes grassMove {
+
+            from {
+                transform:
+                    rotate(calc(var(--rotate) - 2deg));
+            }
+
+            to {
+                transform:
+                    rotate(calc(var(--rotate) + 4deg));
+            }
+        }
+
+
+        /* =====================================================
+   RAMO GENERAL
+===================================================== */
+
+        .bouquet {
+
+            width: 650px;
+            height: 780px;
+
+            position: absolute;
+
+            left: 50%;
+            bottom: -65px;
+
+            transform:
+                translateX(-50%);
+
+            transform-origin:
+                center bottom;
+
+            z-index: 30;
+
+            animation:
+                bouquetEntrance 1.8s cubic-bezier(.21,
+                    .84,
+                    .36,
+                    1.2) forwards;
+        }
+
+        @keyframes bouquetEntrance {
+
+            0% {
+                opacity: 0;
+
+                transform:
+                    translateX(-50%) translateY(250px) scale(.5);
+            }
+
+            100% {
+                opacity: 1;
+
+                transform:
+                    translateX(-50%) translateY(0) scale(1);
+            }
+        }
+
+
+        /* movimiento posterior */
+
+        .bouquet-inner {
+            position: absolute;
+
+            inset: 0;
+
+            transform-origin:
+                center bottom;
+
+            animation:
+                bouquetBreath 5s ease-in-out infinite alternate;
+        }
+
+        @keyframes bouquetBreath {
+
+            from {
+                transform: rotate(-.6deg);
+            }
+
+            to {
+                transform: rotate(.8deg);
+            }
+        }
+
+
+        /* =====================================================
+   TALLOS
+===================================================== */
+
+        .stem {
+            position: absolute;
+
+            width: 9px;
+
+            height: var(--height);
+
+            left: var(--base-x);
+            top: var(--base-y);
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(90deg,
+                    #0d5129 0%,
+                    #258144 35%,
+                    #3b9c56 55%,
+                    #176736 75%,
+                    #0c4926 100%);
+
+            box-shadow:
+                inset 1px 0 2px rgba(255, 255, 255, .25),
+                1px 2px 3px rgba(0, 0, 0, .25);
+
+            /*
+       El tallo se dibuja desde la flor
+       hacia la parte central del ramo.
+    */
+
+            transform-origin:
+                center top;
+
+            transform:
+                rotate(var(--rotate));
+
+            z-index: 6;
+
+            opacity: .95;
+        }
+
+
+        /* =====================================================
+   HOJAS
+===================================================== */
+
+        .leaf {
+            position: absolute;
+
+            width: 95px;
+            height: 48px;
+
+            background:
+                linear-gradient(135deg,
+                    #31803d,
+                    #16582d);
+
+            border-radius:
+                100% 0 100% 0;
+
+            z-index: 8;
+
+            filter:
+                drop-shadow(2px 3px 2px rgba(0, 0, 0, .15));
+        }
+
+
+        /* =====================================================
+   GIRASOL
+===================================================== */
+
+        .sunflower {
+
+            position: absolute;
+
+            left: var(--left);
+            top: var(--top);
+
+            width: var(--size);
+            height: var(--size);
+
+            z-index: var(--z);
+
+            transform-origin: center;
+
+            animation:
+                flowerEntrance 1.5s cubic-bezier(.17,
+                    .85,
+                    .31,
+                    1.25) backwards,
+
+                flowerMotion var(--motion) ease-in-out infinite alternate;
+
+            animation-delay:
+                var(--delay),
+                calc(var(--delay) + 1.5s);
+        }
+
+        @keyframes flowerEntrance {
+
+            0% {
+                opacity: 0;
+
+                transform:
+                    translateY(90px) scale(0) rotate(-30deg);
+            }
+
+            100% {
+                opacity: 1;
+
+                transform:
+                    translateY(0) scale(1) rotate(0);
+            }
+        }
+
+        @keyframes flowerMotion {
+
+            from {
+                transform:
+                    rotate(-1.5deg) translateY(0);
+            }
+
+            to {
+                transform:
+                    rotate(1.5deg) translateY(-4px);
+            }
+        }
+
+
+        /* =====================================================
+   PETALOS
+===================================================== */
+
+        .petal {
+
+            position: absolute;
+
+            width: 23%;
+            height: 47%;
+
+            left: 38.5%;
+            top: 4%;
+
+            transform-origin:
+                50% 100%;
+
+            border-radius:
+                55% 55% 50% 50%;
+
+            background:
+                linear-gradient(90deg,
+                    #f5a900 0%,
+                    #ffcd17 35%,
+                    #ffe645 50%,
+                    #ffc107 75%,
+                    #e99a00 100%);
+
+            clip-path:
+                polygon(50% 0%,
+                    76% 15%,
+                    100% 55%,
+                    63% 100%,
+                    36% 100%,
+                    0 55%,
+                    24% 15%);
+
+            box-shadow:
+                inset 0 0 5px rgba(255, 255, 255, .25),
+
+                0 2px 2px rgba(110, 70, 0, .15);
+        }
+
+
+        /* petalos internos */
+
+        .petal.inner {
+
+            width: 19%;
+            height: 40%;
+
+            left: 40.5%;
+            top: 10%;
+
+            background:
+                linear-gradient(#ffe02e,
+                    #ffb500);
+        }
+
+
+        /* =====================================================
+   CENTRO
+===================================================== */
+
+        .center {
+
+            position: absolute;
+
+            width: 44%;
+            height: 44%;
+
+            top: 28%;
+            left: 28%;
+
+            border-radius: 50%;
+
+            z-index: 30;
+
+            background:
+                radial-gradient(circle at center,
+                    #422008 0%,
+                    #211108 66%,
+                    #0a0603 100%);
+
+            border:
+                3px solid rgba(38, 17, 5, .8);
+
+            box-shadow:
+                inset 0 0 18px #000,
+
+                0 4px 8px rgba(0, 0, 0, .35);
+        }
+
+        .center::after {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 6%;
+
+            border-radius: 50%;
+
+            background-image:
+                radial-gradient(#8a5518 1.2px,
+                    transparent 1.8px);
+
+            background-size:
+                7px 7px;
+
+            opacity: .65;
+        }
+
+
+        /* =====================================================
+   PAPEL DE ENVOLTURA
+===================================================== */
+
+        .wrap-back {
+
+            position: absolute;
+
+            width: 470px;
+            height: 560px;
+
+            bottom: 20px;
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+
+            z-index: 3;
+        }
+
+        /* izquierda */
+
+        .paper-left {
+
+            position: absolute;
+
+            width: 280px;
+            height: 520px;
+
+            left: 5px;
+            bottom: 0;
+
+            background:
+                linear-gradient(145deg,
+                    rgba(255, 187, 193, .70),
+                    rgba(233, 132, 155, .35));
+
+            clip-path:
+                polygon(0 5%,
+                    88% 30%,
+                    70% 100%,
+                    38% 100%);
+
+            backdrop-filter:
+                blur(2px);
+        }
+
+        /* derecha */
+
+        .paper-right {
+
+            position: absolute;
+
+            width: 280px;
+            height: 520px;
+
+            right: 5px;
+            bottom: 0;
+
+            background:
+                linear-gradient(215deg,
+                    rgba(255, 192, 198, .72),
+                    rgba(213, 117, 145, .35));
+
+            clip-path:
+                polygon(100% 5%,
+                    12% 30%,
+                    30% 100%,
+                    65% 100%);
+        }
+
+
+        /* triangulos superiores */
+
+        .paper-triangle {
+
+            position: absolute;
+
+            width: 200px;
+            height: 180px;
+
+            background:
+                rgba(255, 195, 207, .65);
+
+            z-index: 1;
+        }
+
+        .paper-triangle.left {
+
+            left: -5px;
+            top: 10px;
+
+            clip-path:
+                polygon(0 0,
+                    100% 28%,
+                    50% 100%);
+        }
+
+        .paper-triangle.right {
+
+            right: -5px;
+            top: 35px;
+
+            clip-path:
+                polygon(100% 0,
+                    0 30%,
+                    50% 100%);
+        }
+
+
+        /* papel frontal */
+
+        .wrap-front {
+
+            position: absolute;
+
+            width: 350px;
+            height: 350px;
+
+            left: 50%;
+            bottom: 15px;
+
+            transform:
+                translateX(-50%);
+
+            z-index: 45;
+
+            background:
+                linear-gradient(135deg,
+                    rgba(248, 194, 196, .65),
+                    rgba(188, 114, 125, .42));
+
+            clip-path:
+                polygon(5% 0,
+                    50% 17%,
+                    95% 0,
+                    72% 100%,
+                    28% 100%);
+
+            backdrop-filter:
+                blur(2px);
+
+            box-shadow:
+                inset 0 0 25px rgba(255, 255, 255, .15);
+        }
+
+
+        /* =====================================================
+   CINTA
+===================================================== */
+
+        .ribbon {
+
+            position: absolute;
+
+            width: 230px;
+            height: 120px;
+
+            bottom: 180px;
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+
+            z-index: 65;
+        }
+
+        .ribbon-center {
+
+            position: absolute;
+
+            width: 75px;
+            height: 65px;
+
+            top: 25px;
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+
+            border-radius:
+                8px;
+
+            background:
+                linear-gradient(90deg,
+                    #ffb037,
+                    #ff8c21,
+                    #ffc66d);
+
+            box-shadow:
+                0 4px 6px rgba(0, 0, 0, .15);
+
+            z-index: 5;
+        }
+
+        .ribbon-left {
+
+            position: absolute;
+
+            width: 115px;
+            height: 60px;
+
+            top: 22px;
+            left: 0;
+
+            background:
+                linear-gradient(135deg,
+                    #ffcd49,
+                    #ff9f32);
+
+            border-radius:
+                100% 10% 100% 30%;
+
+            transform:
+                rotate(-15deg);
+        }
+
+        .ribbon-right {
+
+            position: absolute;
+
+            width: 115px;
+            height: 60px;
+
+            top: 22px;
+            right: 0;
+
+            background:
+                linear-gradient(225deg,
+                    #ffdf32,
+                    #ff9a30);
+
+            border-radius:
+                10% 100% 30% 100%;
+
+            transform:
+                rotate(15deg);
+        }
+
+
+        /* =====================================================
+   MARIPOSAS
+===================================================== */
+
+        .butterfly {
+
+            position: absolute;
+
+            width: 32px;
+            height: 25px;
+
+            z-index: 150;
+
+            animation:
+                butterflyFloat var(--time) linear infinite;
+
+            animation-delay:
+                var(--delay);
+        }
+
+        .butterfly::before,
+        .butterfly::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 16px;
+            height: 24px;
+
+            top: 0;
+
+            border:
+                2px solid #ffe91d;
+
+            background:
+                rgba(255, 225, 0, .1);
+
+            box-shadow:
+                0 0 5px rgba(255, 238, 0, .25);
+        }
+
+        .butterfly::before {
+
+            left: 1px;
+
+            border-radius:
+                90% 10% 80% 20%;
+
+            transform-origin:
+                right center;
+
+            animation:
+                wingLeft .25s ease-in-out infinite alternate;
+        }
+
+        .butterfly::after {
+
+            right: 1px;
+
+            border-radius:
+                10% 90% 20% 80%;
+
+            transform-origin:
+                left center;
+
+            animation:
+                wingRight .25s ease-in-out infinite alternate;
+        }
+
+        @keyframes wingLeft {
+
+            from {
+                transform: rotateY(0);
+            }
+
+            to {
+                transform: rotateY(65deg);
+            }
+        }
+
+        @keyframes wingRight {
+
+            from {
+                transform: rotateY(0);
+            }
+
+            to {
+                transform: rotateY(-65deg);
+            }
+        }
+
+        @keyframes butterflyFloat {
+
+            0% {
+
+                transform:
+                    translate(0,
+                        0) rotate(-10deg);
+            }
+
+            25% {
+
+                transform:
+                    translate(55px,
+                        -50px) rotate(10deg);
+            }
+
+            50% {
+
+                transform:
+                    translate(110px,
+                        15px) rotate(-5deg);
+            }
+
+            75% {
+
+                transform:
+                    translate(165px,
+                        -40px) rotate(15deg);
+            }
+
+            100% {
+
+                transform:
+                    translate(220px,
+                        0) rotate(-10deg);
+            }
+        }
+
+
+        /* =====================================================
+   RESPONSIVE
+===================================================== */
+
+        @media(max-width:900px) {
+
+            .bouquet {
+
+                transform:
+                    translateX(-50%) scale(.85);
+
+                transform-origin:
+                    bottom center;
+            }
+
+        }
+
+        @media(max-width:650px) {
+
+            .header {
+                top: 4%;
+            }
+
+            .header h1 {
+                font-size:
+                    clamp(2.6rem,
+                        11vw,
+                        4.2rem);
+            }
+
+            .header p {
+                font-size:
+                    clamp(1rem,
+                        5vw,
+                        1.7rem);
+            }
+
+            .bouquet {
+
+                bottom: -120px;
+
+                transform:
+                    translateX(-50%) scale(.7);
+            }
+
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <div class="scene" id="scene">
+
+
+        <!-- ========================================
+         TITULO
+    ========================================= -->
+
+        <div class="header">
+
+            <h1>
+                Feliz Día De Las Flores Amarillas
+            </h1>
+
+            <p>
+                Ten tu ramo bonito
+            </p>
+
+        </div>
+
+
+
+        <!-- ========================================
+         LUCES
+    ========================================= -->
+
+        <div id="fireflies"></div>
+
+
+
+        <!-- ========================================
+         CESPED
+    ========================================= -->
+
+        <div class="grass-area" id="grassArea">
+        </div>
+
+
+
+        <!-- ========================================
+         MARIPOSAS
+    ========================================= -->
+
+        <div class="butterfly" style="
+            left:13%;
+            top:43%;
+            --time:8s;
+            --delay:0s;
+        ">
+        </div>
+
+        <div class="butterfly" style="
+            left:29%;
+            top:49%;
+            --time:10s;
+            --delay:-4s;
+        ">
+        </div>
+
+        <div class="butterfly" style="
+            left:27%;
+            top:71%;
+            --time:9s;
+            --delay:-2s;
+        ">
+        </div>
+
+        <div class="butterfly" style="
+            left:48%;
+            top:52%;
+            --time:7s;
+            --delay:-5s;
+        ">
+        </div>
+
+        <div class="butterfly" style="
+            right:14%;
+            top:70%;
+            --time:11s;
+            --delay:-6s;
+        ">
+        </div>
+
+        <div class="butterfly" style="
+            left:45%;
+            bottom:9%;
+            --time:9s;
+            --delay:-7s;
+        ">
+        </div>
+
+
+
+        <!-- ========================================
+         RAMO
+    ========================================= -->
+
+        <div class="bouquet" id="bouquet">
+
+            <div class="bouquet-inner">
+
+
+                <!-- PAPEL TRASERO -->
+
+                <div class="wrap-back">
+
+                    <div class="paper-triangle left">
+                    </div>
+
+                    <div class="paper-triangle right">
+                    </div>
+
+                    <div class="paper-left">
+                    </div>
+
+                    <div class="paper-right">
+                    </div>
+
+                </div>
+
+
+                <!-- TALLOS -->
+
+                <div id="stems"></div>
+
+
+                <!-- FLORES -->
+
+                <div id="flowers"></div>
+
+
+                <!-- PAPEL FRONTAL -->
+
+                <div class="wrap-front">
+                </div>
+
+
+                <!-- CINTA -->
+
+                <div class="ribbon">
+
+                    <div class="ribbon-left">
+                    </div>
+
+                    <div class="ribbon-right">
+                    </div>
+
+                    <div class="ribbon-center">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        /* ==========================================================
+           CONFIGURACIÓN DE GIRASOLES
+        
+           left = posición horizontal
+           top  = posición vertical
+           size = tamaño
+           z    = profundidad
+        ========================================================== */
+
+        const flowerConfig = [
+
+            /* fila trasera */
+
+            {
+                left: 150,
+                top: 75,
+                size: 160,
+                z: 12
+            },
+
+            {
+                left: 255,
+                top: 25,
+                size: 170,
+                z: 11
+            },
+
+            {
+                left: 375,
+                top: 55,
+                size: 180,
+                z: 10
+            },
+
+
+            /* fila media */
+
+            {
+                left: 75,
+                top: 150,
+                size: 180,
+                z: 18
+            },
+
+            {
+                left: 235,
+                top: 135,
+                size: 185,
+                z: 17
+            },
+
+            {
+                left: 395,
+                top: 145,
+                size: 180,
+                z: 16
+            },
+
+
+            /* fila delantera */
+
+            {
+                left: 115,
+                top: 260,
+                size: 165,
+                z: 24
+            },
+
+            {
+                left: 240,
+                top: 245,
+                size: 205,
+                z: 30
+            },
+
+            {
+                left: 405,
+                top: 270,
+                size: 170,
+                z: 26
+            },
+
+
+            /* parte baja */
+
+            {
+                left: 175,
+                top: 350,
+                size: 165,
+                z: 22
+            },
+
+            {
+                left: 345,
+                top: 365,
+                size: 155,
+                z: 21
+            }
+
+        ];
+
+
+        const flowerContainer =
+            document.getElementById(
+                "flowers"
+            );
+
+        const stemContainer =
+            document.getElementById(
+                "stems"
+            );
+
+
+        /* ==========================================================
+           CREAR FLORES
+        ========================================================== */
+
+        flowerConfig.forEach(
+            (flower, index) => {
+
+
+                /* ==========================================================
+                   CREAR TALLO CONVERGENTE
+                
+                   Cada tallo:
+                   1. comienza debajo del centro de su girasol
+                   2. baja hacia una zona central
+                   3. termina agrupado dentro del envoltorio
+                ========================================================== */
+
+                const flowerCenterX =
+                    flower.left + (flower.size / 2);
+
+                /*
+                    No empezamos exactamente en el centro de la flor.
+                    Bajamos un poco para esconder el inicio detrás
+                    del girasol.
+                */
+                const flowerCenterY =
+                    flower.top + (flower.size * 0.58);
+
+
+                /*
+                    Punto donde termina el tallo.
+                
+                    325 = centro aproximado del ramo.
+                
+                    Los pequeños desplazamientos evitan que todos
+                    queden exactamente uno encima del otro.
+                */
+                const stemTargets = [
+                    -20,
+                    -15,
+                    -10,
+                    -5,
+                    0,
+                    5,
+                    10,
+                    15,
+                    20,
+                    -8,
+                    8
+                ];
+
+                const targetX =
+                    325 + stemTargets[index];
+
+                const targetY =
+                    700;
+
+
+                /*
+                    Distancias horizontal y vertical
+                */
+                const dx =
+                    targetX - flowerCenterX;
+
+                const dy =
+                    targetY - flowerCenterY;
+
+
+                /*
+                    Longitud real del tallo
+                */
+                const stemLength =
+                    Math.sqrt(
+                        (dx * dx) +
+                        (dy * dy)
+                    );
+
+
+                /*
+                    Ángulo que conecta la flor con
+                    el centro inferior del ramo.
+                */
+                const stemAngle =
+                    Math.atan2(
+                        dx,
+                        dy
+                    ) * (180 / Math.PI);
+
+
+                /*
+                    Crear tallo
+                */
+                const stem =
+                    document.createElement("div");
+
+                stem.className = "stem";
+
+
+                /*
+                    Posición inicial:
+                    debajo del centro de cada girasol
+                */
+                stem.style.setProperty(
+                    "--base-x",
+                    `${flowerCenterX - 4}px`
+                );
+
+                stem.style.setProperty(
+                    "--base-y",
+                    `${flowerCenterY}px`
+                );
+
+
+                /*
+                    Longitud
+                */
+                stem.style.setProperty(
+                    "--height",
+                    `${stemLength}px`
+                );
+
+
+                /*
+                    IMPORTANTE:
+                
+                    Como el tallo empieza arriba y baja,
+                    usamos el negativo del ángulo.
+                */
+                stem.style.setProperty(
+                    "--rotate",
+                    `${-stemAngle}deg`
+                );
+
+
+                stemContainer.appendChild(
+                    stem
+                );
+
+
+                /* ------------------------
+                   FLOR
+                ------------------------ */
+
+                const sunflower =
+                    document.createElement(
+                        "div"
+                    );
+
+                sunflower.className =
+                    "sunflower";
+
+                sunflower.style.setProperty(
+                    "--left",
+                    `${flower.left}px`
+                );
+
+                sunflower.style.setProperty(
+                    "--top",
+                    `${flower.top}px`
+                );
+
+                sunflower.style.setProperty(
+                    "--size",
+                    `${flower.size}px`
+                );
+
+                sunflower.style.setProperty(
+                    "--z",
+                    flower.z
+                );
+
+                sunflower.style.setProperty(
+                    "--delay",
+                    `${index * .09}s`
+                );
+
+                sunflower.style.setProperty(
+                    "--motion",
+                    `${4 +
+                    Math.random() * 2}s`
+                );
+
+
+                /* ------------------------
+                   PÉTALOS EXTERNOS
+                ------------------------ */
+
+                const petals = 24;
+
+                for (
+                    let i = 0;
+                    i < petals;
+                    i++
+                ) {
+
+                    const petal =
+                        document.createElement(
+                            "div"
+                        );
+
+                    petal.className =
+                        "petal";
+
+                    petal.style.transform =
+                        `rotate(${i *
+                        (360 / petals)
+                        }deg)`;
+
+                    sunflower.appendChild(
+                        petal
+                    );
+
+                }
+
+
+                /* ------------------------
+                   PÉTALOS INTERNOS
+                ------------------------ */
+
+                const innerPetals = 18;
+
+                for (
+                    let i = 0;
+                    i < innerPetals;
+                    i++
+                ) {
+
+                    const petal =
+                        document.createElement(
+                            "div"
+                        );
+
+                    petal.className =
+                        "petal inner";
+
+                    petal.style.transform =
+                        `rotate(${i *
+                        (360 / innerPetals)
+                        }deg)`;
+
+                    sunflower.appendChild(
+                        petal
+                    );
+
+                }
+
+
+                /* ------------------------
+                   CENTRO
+                ------------------------ */
+
+                const center =
+                    document.createElement(
+                        "div"
+                    );
+
+                center.className =
+                    "center";
+
+                sunflower.appendChild(
+                    center
+                );
+
+
+                flowerContainer.appendChild(
+                    sunflower
+                );
+
+
+                /* ------------------------
+                   HOJAS
+                ------------------------ */
+
+                if (index > 2) {
+
+                    const leaf =
+                        document.createElement(
+                            "div"
+                        );
+
+                    leaf.className =
+                        "leaf";
+
+                    leaf.style.left =
+                        `${flower.left +
+                        35}px`;
+
+                    leaf.style.top =
+                        `${flower.top +
+                        flower.size +
+                        20}px`;
+
+                    leaf.style.transform =
+                        index % 2 === 0
+                            ?
+                            "rotate(35deg)"
+                            :
+                            "rotate(-25deg) scaleX(-1)";
+
+                    flowerContainer.appendChild(
+                        leaf
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* ==========================================================
+           ESTRELLAS / LUCES
+        ========================================================== */
+
+        const fireflies =
+            document.getElementById(
+                "fireflies"
+            );
+
+        for (
+            let i = 0;
+            i < 90;
+            i++
+        ) {
+
+            const light =
+                document.createElement(
+                    "span"
+                );
+
+            light.className =
+                "firefly";
+
+            light.style.left =
+                `${Math.random() * 100}%`;
+
+            light.style.top =
+                `${Math.random() * 100}%`;
+
+            light.style.setProperty(
+                "--size",
+                `${Math.random() * 3 + 1}px`
+            );
+
+            light.style.setProperty(
+                "--duration",
+                `${Math.random() * 7 + 5}s`
+            );
+
+            light.style.setProperty(
+                "--delay",
+                `${Math.random() * 8}s`
+            );
+
+            light.style.setProperty(
+                "--moveX",
+                `${Math.random() * 80 - 40}px`
+            );
+
+            fireflies.appendChild(
+                light
+            );
+
+        }
+
+
+        /* ==========================================================
+           CESPED AUTOMÁTICO
+        ========================================================== */
+
+        const grassArea =
+            document.getElementById(
+                "grassArea"
+            );
+
+        for (
+            let i = 0;
+            i < 55;
+            i++
+        ) {
+
+            const grass =
+                document.createElement(
+                    "div"
+                );
+
+            grass.className =
+                "grass";
+
+            grass.style.setProperty(
+                "--left",
+                `${Math.random() * 100}%`
+            );
+
+            grass.style.setProperty(
+                "--height",
+                `${Math.random() * 180 + 100}px`
+            );
+
+            grass.style.setProperty(
+                "--rotate",
+                `${Math.random() * 35 - 17}deg`
+            );
+
+            grass.style.animationDelay =
+                `${Math.random() * 2}s`;
+
+            grassArea.appendChild(
+                grass
+            );
+
+        }
+
+
+        /* ==========================================================
+           PARALLAX CON EL MOUSE
+        ========================================================== */
+
+        const bouquet =
+            document.getElementById(
+                "bouquet"
+            );
+
+        document.addEventListener(
+            "mousemove",
+            function (e) {
+
+                const x =
+                    (
+                        e.clientX /
+                        window.innerWidth
+                        - .5
+                    ) * 12;
+
+                const y =
+                    (
+                        e.clientY /
+                        window.innerHeight
+                        - .5
+                    ) * 7;
+
+                bouquet.style.marginLeft =
+                    `${x}px`;
+
+                bouquet.style.marginBottom =
+                    `${-y}px`;
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
