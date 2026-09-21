@@ -1023,6 +1023,60 @@
             }
 
         }
+
+
+        /* =====================================================
+           BOTÓN FLOTANTE DE MÚSICA
+        ===================================================== */
+        .music-button {
+            position: fixed;
+            right: 24px;
+            bottom: 24px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, .45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            cursor: pointer;
+            z-index: 9999;
+            color: #fff;
+            background: rgba(255, 255, 255, .18);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, .28);
+            transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+        }
+
+        .music-button:hover {
+            transform: scale(1.08);
+            background: rgba(255, 230, 0, .25);
+        }
+
+        .music-button.playing {
+            animation: musicPulse 1.2s ease-in-out infinite;
+            background: rgba(255, 220, 0, .28);
+            box-shadow: 0 0 10px rgba(255, 230, 0, .85),
+                        0 0 26px rgba(255, 230, 0, .45);
+        }
+
+        @keyframes musicPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.12); }
+        }
+
+        @media(max-width:650px) {
+            .music-button {
+                right: 14px;
+                bottom: 14px;
+                width: 50px;
+                height: 50px;
+                font-size: 23px;
+            }
+        }
+
     </style>
 </head>
 
@@ -1030,9 +1084,22 @@
 <body>
 
     <!-- MÚSICA DE FONDO -->
-    <audio id="backgroundMusic" autoplay loop preload="auto">
+    <audio id="backgroundMusic" preload="auto" loop>
         <source src="cancion.mp3" type="audio/mpeg">
+        Tu navegador no soporta audio HTML5.
     </audio>
+
+    <!-- BOTÓN FLOTANTE DE MÚSICA -->
+    <button
+        id="musicButton"
+        class="music-button"
+        type="button"
+        aria-label="Reproducir música"
+        title="Música"
+    >
+        🎵
+    </button>
+
 
 
     <div class="scene" id="scene">
@@ -1757,118 +1824,93 @@
             }
         );
 
+
+
         /* ==========================================================
-       MÚSICA DE FONDO
-    ========================================================== */
+           MÚSICA DE FONDO
+        ========================================================== */
 
-        const musica = document.getElementById("backgroundMusic");
+        const backgroundMusic = document.getElementById("backgroundMusic");
+        const musicButton = document.getElementById("musicButton");
 
-        // SEGUNDO DESDE DONDE QUIERES QUE EMPIECE
-        const SEGUNDO_INICIO = 18;
+        // Cambia este valor por el segundo exacto desde donde quieres iniciar.
+        // Ejemplo: 92 = 1 minuto con 32 segundos.
+        const MUSIC_START_AT = 45;
 
         // Volumen: 0.0 a 1.0
-        musica.volume = 0.18;
+        backgroundMusic.volume = 0.40;
 
-        musica.addEventListener("loadedmetadata", async () => {
+        let firstPlay = true;
 
-            musica.currentTime = SEGUNDO_INICIO;
-
-            try {
-                await musica.play();
-                console.log("Música iniciada automáticamente");
-            } catch (error) {
-                console.log("El navegador bloqueó el autoplay");
-            }
-
-        });
-
-        let iniciada = false;
-
-        async function reproducirMusica() {
-
-            if (iniciada) return;
-
-            try {
-
-                // Esperar que el navegador conozca el audio
-                if (musica.readyState < 1) {
-                    await new Promise(resolve => {
-                        musica.addEventListener(
-                            "loadedmetadata",
-                            resolve,
-                            { once: true }
-                        );
-                    });
-                }
-
-                musica.currentTime = SEGUNDO_INICIO;
-
-                await musica.play();
-
-                iniciada = true;
-
-                console.log(
-                    "🎵 Música iniciada desde el segundo:",
-                    SEGUNDO_INICIO
-                );
-
-            } catch (error) {
-
-                console.log(
-                    "El navegador bloqueó el autoplay con sonido."
-                );
-
+        function setMusicButtonState() {
+            if (backgroundMusic.paused) {
+                musicButton.classList.remove("playing");
+                musicButton.setAttribute("aria-label", "Reproducir música");
+            } else {
+                musicButton.classList.add("playing");
+                musicButton.setAttribute("aria-label", "Pausar música");
             }
         }
 
+        async function playMusic() {
+            try {
+                if (firstPlay) {
+                    if (backgroundMusic.readyState < 1) {
+                        await new Promise(resolve => {
+                            backgroundMusic.addEventListener("loadedmetadata", resolve, { once: true });
+                        });
+                    }
 
-        /* ==========================================
-           INTENTAR INICIAR APENAS ABRE LA PÁGINA
-        ========================================== */
+                    if (Number.isFinite(backgroundMusic.duration) && MUSIC_START_AT < backgroundMusic.duration) {
+                        backgroundMusic.currentTime = MUSIC_START_AT;
+                    }
 
-        window.addEventListener("load", () => {
+                    firstPlay = false;
+                }
 
-            reproducirMusica();
+                await backgroundMusic.play();
+                setMusicButtonState();
+                return true;
+            } catch (error) {
+                setMusicButtonState();
+                return false;
+            }
+        }
 
+        function pauseMusic() {
+            backgroundMusic.pause();
+            setMusicButtonState();
+        }
+
+        // Intento de reproducción automática al abrir la página.
+        // Algunos navegadores la bloquearán hasta el primer clic o toque.
+        window.addEventListener("load", async () => {
+            await playMusic();
         });
 
+        // Botón flotante: reproduce / pausa.
+        musicButton.addEventListener("click", async (event) => {
+            event.stopPropagation();
 
-        /* ==========================================
-           SI EL NAVEGADOR BLOQUEA EL AUTOPLAY,
-           ARRANCA CON LA PRIMERA INTERACCIÓN
-        ========================================== */
-
-        ["click", "touchstart", "keydown"].forEach(evento => {
-
-            document.addEventListener(
-                evento,
-                reproducirMusica,
-                { once: true }
-            );
-
+            if (backgroundMusic.paused) {
+                await playMusic();
+            } else {
+                pauseMusic();
+            }
         });
 
+        // Si el navegador bloqueó el autoplay, el primer clic/toque en la página
+        // inicia la música automáticamente.
+        async function startOnFirstInteraction(event) {
+            if (event.target === musicButton || !backgroundMusic.paused) return;
+            await playMusic();
+        }
 
-        /* Compatibilidad con navegadores que bloquean autoplay */
+        document.addEventListener("pointerdown", startOnFirstInteraction, { once: true });
+        document.addEventListener("keydown", startOnFirstInteraction, { once: true });
 
-        document.addEventListener(
-            "click",
-            reproducirMusica,
-            { once: true }
-        );
-
-        document.addEventListener(
-            "touchstart",
-            reproducirMusica,
-            { once: true }
-        );
-
-        document.addEventListener(
-            "keydown",
-            reproducirMusica,
-            { once: true }
-        );
-
+        backgroundMusic.addEventListener("play", setMusicButtonState);
+        backgroundMusic.addEventListener("pause", setMusicButtonState);
 
 
     </script>
