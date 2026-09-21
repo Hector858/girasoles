@@ -1029,6 +1029,11 @@
 
 <body>
 
+    <!-- MÚSICA DE FONDO -->
+    <audio id="backgroundMusic" autoplay loop preload="auto">
+        <source src="cancion.mp3" type="audio/mpeg">
+    </audio>
+
 
     <div class="scene" id="scene">
 
@@ -1751,6 +1756,120 @@
 
             }
         );
+
+        /* ==========================================================
+       MÚSICA DE FONDO
+    ========================================================== */
+
+        const musica = document.getElementById("backgroundMusic");
+
+        // SEGUNDO DESDE DONDE QUIERES QUE EMPIECE
+        const SEGUNDO_INICIO = 18;
+
+        // Volumen: 0.0 a 1.0
+        musica.volume = 0.18;
+
+        musica.addEventListener("loadedmetadata", async () => {
+
+            musica.currentTime = SEGUNDO_INICIO;
+
+            try {
+                await musica.play();
+                console.log("Música iniciada automáticamente");
+            } catch (error) {
+                console.log("El navegador bloqueó el autoplay");
+            }
+
+        });
+
+        let iniciada = false;
+
+        async function reproducirMusica() {
+
+            if (iniciada) return;
+
+            try {
+
+                // Esperar que el navegador conozca el audio
+                if (musica.readyState < 1) {
+                    await new Promise(resolve => {
+                        musica.addEventListener(
+                            "loadedmetadata",
+                            resolve,
+                            { once: true }
+                        );
+                    });
+                }
+
+                musica.currentTime = SEGUNDO_INICIO;
+
+                await musica.play();
+
+                iniciada = true;
+
+                console.log(
+                    "🎵 Música iniciada desde el segundo:",
+                    SEGUNDO_INICIO
+                );
+
+            } catch (error) {
+
+                console.log(
+                    "El navegador bloqueó el autoplay con sonido."
+                );
+
+            }
+        }
+
+
+        /* ==========================================
+           INTENTAR INICIAR APENAS ABRE LA PÁGINA
+        ========================================== */
+
+        window.addEventListener("load", () => {
+
+            reproducirMusica();
+
+        });
+
+
+        /* ==========================================
+           SI EL NAVEGADOR BLOQUEA EL AUTOPLAY,
+           ARRANCA CON LA PRIMERA INTERACCIÓN
+        ========================================== */
+
+        ["click", "touchstart", "keydown"].forEach(evento => {
+
+            document.addEventListener(
+                evento,
+                reproducirMusica,
+                { once: true }
+            );
+
+        });
+
+
+        /* Compatibilidad con navegadores que bloquean autoplay */
+
+        document.addEventListener(
+            "click",
+            reproducirMusica,
+            { once: true }
+        );
+
+        document.addEventListener(
+            "touchstart",
+            reproducirMusica,
+            { once: true }
+        );
+
+        document.addEventListener(
+            "keydown",
+            reproducirMusica,
+            { once: true }
+        );
+
+
 
     </script>
 
